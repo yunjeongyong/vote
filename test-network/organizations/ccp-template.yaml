@@ -1,0 +1,35 @@
+---
+name: test-network-nec
+version: 1.0.0
+client:
+  organization: Nec
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Nec:
+    mspid: NecMSP
+    peers:
+    - peer0.nec.example.com
+    certificateAuthorities:
+    - ca.nec.example.com
+peers:
+  peer0.nec.example.com:
+    url: grpcs://localhost:${P0PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer0.nec.example.com
+      hostnameOverride: peer0.nec.example.com
+certificateAuthorities:
+  ca.nec.example.com:
+    url: https://localhost:${CAPORT}
+    caName: ca-nec
+    tlsCACerts:
+      pem: 
+        - |
+          ${CAPEM}
+    httpOptions:
+      verify: false
