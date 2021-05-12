@@ -6,9 +6,8 @@
 /org3-artifacts/crypto-config/*
 organizations/fabric-ca/ordererOrg/*
 organizations/fabric-ca/nec/*
-organizations/fabric-ca/ordererOrg/*
-!organizations/fabric-ca/nec/fabric-ca-server-config.yaml
 !organizations/fabric-ca/ordererOrg/fabric-ca-server-config.yaml
+!organizations/fabric-ca/nec/fabric-ca-server-config.yaml
 organizations/ordererOrganizations/*
 organizations/peerOrganizations/*
 system-genesis-block/*

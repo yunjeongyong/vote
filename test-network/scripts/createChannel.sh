@@ -84,11 +84,11 @@ createChannel
 successln "Channel '$CHANNEL_NAME' created"
 
 ## Join all the peers to the channel
-infoln "Joining org1 peer to the channel..."
+infoln "Joining nec peer to the channel..."
 joinChannel 1
 
 ## Set the anchor peers for each org in the channel
-infoln "Setting anchor peer for org1..."
+infoln "Setting anchor peer for nec..."
 setAnchorPeer 1
 
 successln "Channel '$CHANNEL_NAME' joined"
