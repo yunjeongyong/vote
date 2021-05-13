@@ -1,5 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * powered by yunjeongyong
  */
 
 import { Gateway, Wallets } from 'fabric-network';
@@ -64,7 +66,14 @@ async function main() {
                 break;
         }
         console.log(`Transaction has been evaluated`);
-        console.log( JSON.stringify(JSON.parse(result.toString()), null, 2) );
+        const s = result.toString();
+        try {
+            console.log( JSON.stringify(JSON.parse(s), null, 2) );
+        } catch(err) {
+            if ( s ) console.log(s);
+        }
+
+        await gateway.disconnect();
 
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);

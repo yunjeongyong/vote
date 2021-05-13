@@ -4,6 +4,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+# powered by yunjeongyong
+#
 
 # This script brings up a Hyperledger Fabric network for testing smart contracts
 # and applications. The test network consists of two organizations with one

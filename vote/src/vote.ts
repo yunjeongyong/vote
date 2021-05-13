@@ -1,3 +1,9 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ * 
+ * powered by yunjeongyong
+ */
+
 import { Context, Contract } from "fabric-contract-api";
 import { Candidate } from "./candidate";
 import { Person } from "./person";
@@ -14,7 +20,7 @@ export class Vote extends Contract {
             const person = new Person();
             person.phone = generatePhone();
             person.birth = generateBirth();
-            person.location = 'LOCATION' + Math.floor(Math.random() * 5);
+            person.location = 'LOC' + Math.floor(Math.random() * 5);
             person.key = this.key('P', person.phone);
             person.timestamp = undefined;
             await ctx.stub.putState(person.key, stateValue(person));
@@ -41,7 +47,7 @@ export class Vote extends Contract {
     async registerPerson(ctx: Context, phone: string, birth: string, location: string) {
         try {
             const person: Person = {
-                key: phone,
+                key: this.key('P', phone),
                 phone: phone,
                 birth: birth,
                 location: location,
@@ -104,7 +110,7 @@ export class Vote extends Contract {
     async registerCandidate(ctx: Context, num: number, name: string, party: string) {
         try {
             const candidate: Candidate = {
-                key: `${num}`,
+                key: this.key('C', num),
                 num: num,
                 name: name,
                 party: party,
@@ -282,15 +288,11 @@ export class Vote extends Contract {
             // 유권자에 투표 정보를 설정한 뒤 업데이트
             person.timestamp = ctx.stub.getTxTimestamp().seconds.low * 1000;
             person.voted = num;
-            await ctx.stub.putState(person.key + '_X', stateValue(person));
+            await ctx.stub.putState(person.key, stateValue(person));
             // 후보 업데이트
-            await ctx.stub.putState(candidate.key + '_X', stateValue(candidate));
+            await ctx.stub.putState(candidate.key, stateValue(candidate));
 
-            // return true;
-            return {
-                person: person,
-                candidate: candidate
-            };
+            return true;
 
         } catch(err) {
             console.log(err);

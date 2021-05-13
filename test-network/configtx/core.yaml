@@ -1,5 +1,5 @@
 peer:
-    id: jdoe
+    id: yyj
     networkId: dev
     listenAddress: 0.0.0.0:7051
     address: 0.0.0.0:7051
