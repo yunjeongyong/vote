@@ -1,0 +1,48 @@
+<h3>투표하기</h3>
+<form (submit)="vote()">
+    <table class="vote-table">
+        <tr>
+            <td>핸드폰 번호</td>
+            <td>
+                <input type="text" name="phone" [(ngModel)]="voteData.phone" placeholder="핸드폰 번호">
+            </td>
+        </tr>
+        <tr>
+            <td>투표할 후보</td>
+            <td>
+                <div *ngFor="let candidate of candidates; index as i">
+                    <label>
+                        <input type="radio" name="num" [(ngModel)]="voteData.num" [value]="candidate.num"> {{candidate.num}}번 {{candidate.name}}
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">투표하기</button>
+                <div *ngIf="loading">투표 진행 중...</div>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<br><br>
+<button (click)="showPeople = !showPeople">show people</button>
+<div *ngIf="showPeople">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>phone</th>
+                <th>birth</th>
+                <th>location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of people">
+                <td>{{ person.phone }}</td>
+                <td>{{ person.birth }}</td>
+                <td>{{ person.location }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

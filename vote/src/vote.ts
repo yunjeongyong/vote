@@ -202,6 +202,7 @@ export class Vote extends Contract {
                 try {
                     const candidate: Candidate = JSON.parse(strValue);
                     const locations = Object.keys(candidate.locations);
+                    votedCount.entire += locations.length;
                     votedCount.ranking.push({
                         num: candidate.num,
                         party: candidate.party,
@@ -236,14 +237,6 @@ export class Vote extends Contract {
         }
     }
 
-    async test(ctx: Context) {
-        try {
-            return ctx.stub.getTxTimestamp();
-        } catch(err) {
-            return err;
-        }
-    }
-
     // 투표할 때 쓰는 함수
     async doVote(ctx: Context, phone: string, num: number) {
         try {
@@ -257,7 +250,11 @@ export class Vote extends Contract {
             const person = <Person> toInstance(byteItem);
             // 이미 투표를 했으면 (timestamp 값이 존재하면) 에러
             if ( person.timestamp !== undefined ) {
-                throw new Error('already voted');
+                // throw new Error('already voted');
+                return {
+                    success: false,
+                    message: 'already voted'
+                };
             }
 
             // 유권자의 나이가 만 19세 이상인지를 확인하기 위한 코드
@@ -292,12 +289,20 @@ export class Vote extends Contract {
             // 후보 업데이트
             await ctx.stub.putState(candidate.key, stateValue(candidate));
 
-            return true;
+            // return true;
+            return {
+                success: true,
+                message: undefined
+            };
 
         } catch(err) {
             console.log(err);
             // return false;
-            return err;
+            // return err;
+            return {
+                success: false,
+                message: JSON.stringify(err)
+            };
         }
     }
 

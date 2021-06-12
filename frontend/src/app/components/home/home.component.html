@@ -1,0 +1,21 @@
+<table class="table">
+    <caption>후보</caption>
+    <thead>
+        <tr>
+            <th>기호</th>
+            <th>이름</th>
+            <th>정당</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let candidate of candidates">
+            <td>{{ candidate.num }}</td>
+            <td>{{ candidate.name }}</td>
+            <td>{{ candidate.party }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<br><br>
+<a routerLink="/vote">투표하러 가기</a><br>
+<a routerLink="/result">투표 결과 확인</a>

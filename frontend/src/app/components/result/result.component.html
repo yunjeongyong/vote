@@ -1,0 +1,53 @@
+<h3>실시간 투표 결과 확인</h3>
+<button (click)="monitor()">확인하기</button>
+<br>
+<span *ngIf="loadingVotedCount">불러오는 중...</span>
+<br>
+<div *ngIf="votedCount">
+
+    {{ checkedTime }}<br>
+    전체 득표 수 : {{ votedCount.entire }}<br><br>
+
+    <table class="table">
+        <caption>후보별 득표 현황</caption>
+        <thead>
+            <tr>
+                <th>기호</th>
+                <th>이름</th>
+                <th>정당</th>
+                <th>득표수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ranking of votedCount.ranking">
+                <td>{{ ranking.num }}</td>
+                <td>{{ ranking.name }}</td>
+                <td>{{ ranking.party }}</td>
+                <td>{{ ranking.voted }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <table class="table">
+        <caption>지역별 득표 현황</caption>
+        <thead>
+            <tr>
+                <th>지역</th>
+                <th>전체 득표</th>
+                <th>후보별 득표</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let location of votedCount.locations">
+                <td>{{ location.location }}</td>
+                <td>{{ location.entire }}</td>
+                <td>
+                    <span>{{ locationVotedToString(location.voted) }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

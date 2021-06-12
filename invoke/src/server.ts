@@ -172,12 +172,11 @@ app.get('/api/monitor', async (req, res, next) => {
 app.post('/api/vote', async (req, res, next) => {
     doTransaction(req, res, next, async contract => {
 
-        const phone = req.params.phone;
-        const num = req.params.num;
-        const result = await contract.evaluateTransaction('doVote', phone, num);
-        const b = bufferToObject(result);
-        if ( b ) res.json({message: 'voted successfully'});
-        else res.status(500).json({message: 'error while voting'});
+        const phone = req.body.phone;
+        const num = req.body.num;
+        const result = await contract.submitTransaction('doVote', phone, num);
+        const data: { success: boolean, message: string } = bufferToObject(result);
+        res.json(data);
     });
 });
 
